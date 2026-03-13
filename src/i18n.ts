@@ -9,16 +9,18 @@ i18n
   .use(initReactI18next)
   .init({
     fallbackLng: "en",
+    supportedLngs: ["en", "ar"],
+    nonExplicitSupportedLngs: true,
     ns: ["common"],
     defaultNS: "common",
     interpolation: {
-      escapeValue: false, // react already safes from xss
+      escapeValue: false,
     },
     backend: {
       loadPath: "/locales/{{lng}}/{{ns}}.json",
     },
     detection: {
-      order: ["localStorage", "cookie", "htmlTag", "path", "subdomain"],
+      order: ["localStorage", "cookie", "htmlTag", "memory"],
       caches: ["localStorage"],
     },
   });
