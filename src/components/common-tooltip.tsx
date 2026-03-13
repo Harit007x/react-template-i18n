@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import type { ReactNode } from 'react';
 import { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent } from '@radix-ui/react-tooltip'
 
 interface TooltipTrigger {

@@ -3,7 +3,6 @@
 import { Cross2Icon } from "@radix-ui/react-icons";
 import type { Table } from "@tanstack/react-table";
 
-import { DataTableViewOptions } from "./data-table-view-options";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 
