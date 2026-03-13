@@ -8,7 +8,7 @@ import { Icons } from "@/components/icons";
 import { DataTableColumnHeader } from "@/components/data-table/data-column-header";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import i18n from "i18next";
+import { useMemo } from "react";
 import {
   Sheet,
   SheetContent,
@@ -140,57 +140,59 @@ const ActionsCell = ({ row }: { row: any }) => {
   );
 };
 
-const columns: ColumnDef<Sale>[] = [
-  {
-    id: "sender",
-    header: () => i18n.t("inquiries.labelSender"),
-    cell: ({ row }) => {
-      const sale = row.original;
 
-      return (
-        <div className="flex flex-col">
-          <span>{sale.sender}</span>
-          <span className="text-foreground/50">{sale.senderMail}</span>
-        </div>
-      );
-    },
-  },
-  {
-    header: () => i18n.t("inquiries.labelSubject"),
-    accessorKey: "subject"
-  },
-  {
-    id: "status",
-    header: () => i18n.t("common.status"),
-    cell: ({ row }) => {
-      const sale = row.original;
-
-      return (
-        <Badge
-          variant={
-            sale.status === "Success"
-              ? "green"
-              : sale.status === "Medium"
-                ? "orange"
-                : "blue"
-          }
-        >
-          {i18n.t(`status.${sale.status.toLowerCase()}`)}
-        </Badge>
-      );
-    },
-  },
-  {
-    id: "actions",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title={i18n.t("common.actions")} />
-    ),
-    cell: ({ row }) => <ActionsCell row={row} />,
-  },
-];
 
 export default function AdminInquiriesPage() {
   const { t } = useTranslation();
+
+  const columns = useMemo<ColumnDef<Sale>[]>(() => [
+    {
+      id: "sender",
+      header: () => t("inquiries.labelSender"),
+      cell: ({ row }) => {
+        const sale = row.original;
+
+        return (
+          <div className="flex flex-col">
+            <span>{sale.sender}</span>
+            <span className="text-foreground/50">{sale.senderMail}</span>
+          </div>
+        );
+      },
+    },
+    {
+      header: () => t("inquiries.labelSubject"),
+      accessorKey: "subject"
+    },
+    {
+      id: "status",
+      header: () => t("common.status"),
+      cell: ({ row }) => {
+        const sale = row.original;
+
+        return (
+          <Badge
+            variant={
+              sale.status === "Success"
+                ? "green"
+                : sale.status === "Medium"
+                  ? "orange"
+                  : "blue"
+            }
+          >
+            {t(`status.${sale.status.toLowerCase()}`)}
+          </Badge>
+        );
+      },
+    },
+    {
+      id: "actions",
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title={t("common.actions")} />
+      ),
+      cell: ({ row }) => <ActionsCell row={row} />,
+    },
+  ], [t]);
   return (
     <div className="space-y-6 animate-in fade-in duration-500">
       <div>

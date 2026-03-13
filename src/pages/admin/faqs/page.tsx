@@ -8,7 +8,7 @@ import { Icons } from "@/components/icons";
 import { DataTableColumnHeader } from "@/components/data-table/data-column-header";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import i18n from "i18next";
+import { useMemo } from "react";
 import {
   Sheet,
   SheetContent,
@@ -121,43 +121,45 @@ const ActionsCell = ({ row }: { row: any }) => {
   );
 };
 
-const columns: ColumnDef<Sale>[] = [
-  {
-    header: () => i18n.t("faqs.labelQuestion"),
-    accessorKey: "question",
-  },
-  {
-    id: "status",
-    header: () => i18n.t("common.status"),
-    cell: ({ row }) => {
-      const sale = row.original;
 
-      return (
-        <Badge
-          variant={
-            sale.status === "Success"
-              ? "green"
-              : sale.status === "Medium"
-                ? "orange"
-                : "blue"
-          }
-        >
-          {i18n.t(`status.${sale.status.toLowerCase()}`)}
-        </Badge>
-      );
-    },
-  },
-  {
-    id: "actions",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title={i18n.t("common.actions")} />
-    ),
-    cell: ({ row }) => <ActionsCell row={row} />,
-  },
-];
 
 export default function AdminFaqsPage() {
   const { t } = useTranslation();
+
+  const columns = useMemo<ColumnDef<Sale>[]>(() => [
+    {
+      header: () => t("faqs.labelQuestion"),
+      accessorKey: "question",
+    },
+    {
+      id: "status",
+      header: () => t("common.status"),
+      cell: ({ row }) => {
+        const sale = row.original;
+
+        return (
+          <Badge
+            variant={
+              sale.status === "Success"
+                ? "green"
+                : sale.status === "Medium"
+                  ? "orange"
+                  : "blue"
+            }
+          >
+            {t(`status.${sale.status.toLowerCase()}`)}
+          </Badge>
+        );
+      },
+    },
+    {
+      id: "actions",
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title={t("common.actions")} />
+      ),
+      cell: ({ row }) => <ActionsCell row={row} />,
+    },
+  ], [t]);
   return (
     <div className="space-y-6 animate-in fade-in duration-500">
       <div>

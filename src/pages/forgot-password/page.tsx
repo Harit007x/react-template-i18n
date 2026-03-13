@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { AlertCircle, CheckCircle2 } from "lucide-react";
-import i18n from "i18next";
+import { useTranslation } from "react-i18next";
 
 // ---------------------- Zod Schema ----------------------
 const ForgotPasswordSchema = z.object({
@@ -21,6 +21,7 @@ const ForgotPasswordSchema = z.object({
 type ForgotPasswordFormValues = z.infer<typeof ForgotPasswordSchema>;
 
 export default function ForgotPasswordPage() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -108,12 +109,12 @@ export default function ForgotPasswordPage() {
             {/* Header */}
             <div className="text-left space-y-1">
               <p className="text-lg font-bold text-foreground">
-                {i18n.t("forgotPassword.title")}
+                {t("forgotPassword.title")}
               </p>
               <p className="text-sm font-light text-foreground opacity-80">
                 {!isSubmitted 
-                  ? i18n.t("forgotPassword.description")
-                  : i18n.t("forgotPassword.successDescription")}
+                  ? t("forgotPassword.description")
+                  : t("forgotPassword.successDescription")}
               </p>
             </div>
 
@@ -124,10 +125,10 @@ export default function ForgotPasswordPage() {
                   <CheckCircle2 className="h-5 w-5 text-green-600 flex-shrink-0" />
                   <div className="space-y-1">
                     <p className="text-sm font-medium text-green-800">
-                      {i18n.t("forgotPassword.resetLinkSent")}
+                      {t("forgotPassword.resetLinkSent")}
                     </p>
                     <p className="text-xs text-green-700">
-                      {i18n.t("forgotPassword.resetLinkSentDesc")}
+                      {t("forgotPassword.resetLinkSentDesc")}
                     </p>
                   </div>
                 </div>
@@ -156,10 +157,10 @@ export default function ForgotPasswordPage() {
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 py-2">
                 {/* Email */}
                 <div className="flex flex-col gap-1">
-                  <Label>{i18n.t("forgotPassword.emailLabel")}</Label>
+                  <Label>{t("forgotPassword.emailLabel")}</Label>
                   <Input
                     type="email"
-                    placeholder={i18n.t("forgotPassword.emailPlaceholder")}
+                    placeholder={t("forgotPassword.emailPlaceholder")}
                     {...register("email")}
                     disabled={isLoading}
                     className={errors.email ? "border-red-500" : ""}
@@ -171,7 +172,7 @@ export default function ForgotPasswordPage() {
 
                 {/* Help Text */}
                 <p className="text-xs text-muted-foreground">
-                  {i18n.t("forgotPassword.helpText")}
+                  {t("forgotPassword.helpText")}
                 </p>
 
                 {/* Submit */}
@@ -180,17 +181,17 @@ export default function ForgotPasswordPage() {
                     {isLoading ? (
                       <>
                         <span className="mr-2 h-4 w-4 animate-spin">⚪</span>
-                        {i18n.t("forgotPassword.submitting")}
+                        {t("forgotPassword.submitting")}
                       </>
                     ) : (
-                      i18n.t("forgotPassword.submit")
+                      t("forgotPassword.submit")
                     )}
                   </Button>
                 <Link
                   to="/login"
                   className="text-sm text-primary hover:underline"
                 >
-                  {i18n.t("forgotPassword.backToLogin")}
+                  {t("forgotPassword.backToLogin")}
                 </Link>
                   {/* <Button
                     type="button"
@@ -215,10 +216,10 @@ export default function ForgotPasswordPage() {
                     {isLoading ? (
                       <>
                         <span className="mr-2 h-4 w-4 animate-spin">⚪</span>
-                        {i18n.t("forgotPassword.resending")}
+                        {t("forgotPassword.resending")}
                       </>
                     ) : (
-                      i18n.t("forgotPassword.resend")
+                      t("forgotPassword.resend")
                     )}
                   </Button>
 
@@ -228,14 +229,14 @@ export default function ForgotPasswordPage() {
                     className="w-full text-sm text-primary hover:underline"
                     onClick={handleBackToLogin}
                   >
-                    {i18n.t("forgotPassword.returnToLogin")}
+                    {t("forgotPassword.returnToLogin")}
                   </Button>
                 </div>
 
                 {/* Additional Help */}
                 <div className="text-center">
                   <p className="text-xs text-muted-foreground">
-                    {i18n.t("forgotPassword.noEmailHint")}
+                    {t("forgotPassword.noEmailHint")}
                   </p>
                 </div>
               </div>

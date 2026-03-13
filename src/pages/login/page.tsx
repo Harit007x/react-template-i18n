@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Icons } from "@/components/icons";
-import i18n from "i18next";
+import { useTranslation } from "react-i18next";
 
 // ---------------------- Zod Schema ----------------------
 const LoginSchema = z.object({
@@ -29,6 +29,7 @@ const LoginSchema = z.object({
 type LoginFormValues = z.infer<typeof LoginSchema>;
 
 export default function LoginPage() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -113,17 +114,17 @@ export default function LoginPage() {
             {/* Header */}
             <div className="text-left space-y-1">
               <p className="text-lg font-bold text-foreground">
-                {i18n.t("login.welcome")}
+                {t("login.welcome")}
               </p>
               <p className="text-sm font-light text-foreground opacity-80">
-                {i18n.t("login.signInHint")}
+                {t("login.signInHint")}
               </p>
             </div>
 
             {/* Demo credentials hint */}
             <div className="bg-muted/50 p-3 rounded-md border border-border">
               <p className="text-xs text-muted-foreground">
-                <span className="font-semibold">{i18n.t("login.demoCredentials")}</span>
+                <span className="font-semibold">{t("login.demoCredentials")}</span>
               </p>
               <p className="text-xs text-muted-foreground mt-1">
                 Email:{" "}
@@ -143,9 +144,9 @@ export default function LoginPage() {
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 py-2">
               {/* Email */}
               <div className="flex flex-col gap-1">
-                <Label>{i18n.t("login.emailLabel")}</Label>
+                <Label>{t("login.emailLabel")}</Label>
                 <Input
-                  placeholder={i18n.t("login.emailPlaceholder")}
+                  placeholder={t("login.emailPlaceholder")}
                   {...register("email")}
                   disabled={isLoading}
                 />
@@ -156,10 +157,10 @@ export default function LoginPage() {
 
               {/* Password */}
               <div className="flex flex-col gap-1">
-                <Label>{i18n.t("login.passwordLabel")}</Label>
+                <Label>{t("login.passwordLabel")}</Label>
                 <Input
                   type="password"
-                  placeholder={i18n.t("login.passwordPlaceholder")}
+                  placeholder={t("login.passwordPlaceholder")}
                   {...register("password")}
                   disabled={isLoading}
                 />
@@ -180,14 +181,14 @@ export default function LoginPage() {
                     }
                     disabled={isLoading}
                   />
-                  <Label>{i18n.t("login.rememberMe")}</Label>
+                  <Label>{t("login.rememberMe")}</Label>
                 </div>
 
                 <Link
                   to="/forgot-password"
                   className="text-sm text-primary hover:underline"
                 >
-                  {i18n.t("login.forgotPassword")}
+                  {t("login.forgotPassword")}
                 </Link>
               </div>
 
@@ -197,10 +198,10 @@ export default function LoginPage() {
                   {isLoading ? (
                     <>
                       <Icons.spinner className=" h-4 w-4 animate-spin" />
-                      {i18n.t("login.loggingIn")}
+                      {t("login.loggingIn")}
                     </>
                   ) : (
-                    i18n.t("login.loginButton")
+                    t("login.loginButton")
                   )}
                 </Button>
 
@@ -208,7 +209,7 @@ export default function LoginPage() {
                   to="/signup"
                   className="text-sm text-primary hover:underline"
                 >
-                  {i18n.t("login.signupLink")}
+                  {t("login.signupLink")}
                 </Link>
               </div>
             </form>

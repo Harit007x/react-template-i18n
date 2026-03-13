@@ -19,12 +19,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
+import { useTranslation } from "react-i18next";
 import { useSettings } from "@/components/language-provider";
-import i18n from "i18next";
 
 export default function SettingsPage() {
   const { language, setLanguage, themeColor, setThemeColor } = useSettings();
-  const t = (key: string) => i18n.t(key);
+  const { t } = useTranslation();
 
   return (
     <div className="space-y-6 animate-in fade-in duration-500">

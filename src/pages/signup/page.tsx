@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import i18n from "i18next";
+import { useTranslation } from "react-i18next";
 
 // ---------------------- Zod Schema ----------------------
 
@@ -35,6 +35,7 @@ const SignupSchema = z.object({
 type SignupFormValues = z.infer<typeof SignupSchema>;
 
 export default function SignupPage() {
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
 
   // ---------------------- React Hook Form ----------------------
@@ -83,10 +84,10 @@ export default function SignupPage() {
             {/* Header */}
             <div className="text-left space-y-1">
               <p className="text-lg font-bold text-foreground">
-                {i18n.t("signup.title")}
+                {t("signup.title")}
               </p>
               <p className="text-sm font-light text-foreground opacity-80">
-                {i18n.t("signup.description")}
+                {t("signup.description")}
               </p>
             </div>
 
@@ -97,9 +98,9 @@ export default function SignupPage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div className="flex flex-col gap-1">
-                  <Label>{i18n.t("signup.firstName")}</Label>
+                  <Label>{t("signup.firstName")}</Label>
                   <Input
-                    placeholder={i18n.t("signup.firstNamePlaceholder")}
+                    placeholder={t("signup.firstNamePlaceholder")}
                     {...register("firstName")}
                     disabled={isLoading}
                   />
@@ -111,9 +112,9 @@ export default function SignupPage() {
                 </div>
 
                 <div className="flex flex-col gap-1">
-                  <Label>{i18n.t("signup.lastName")}</Label>
+                  <Label>{t("signup.lastName")}</Label>
                   <Input
-                    placeholder={i18n.t("signup.lastNamePlaceholder")}
+                    placeholder={t("signup.lastNamePlaceholder")}
                     {...register("lastName")}
                     disabled={isLoading}
                   />
@@ -128,9 +129,9 @@ export default function SignupPage() {
               {/* Email */}
 
               <div className="flex flex-col gap-1">
-                <Label>{i18n.t("signup.email")}</Label>
+                <Label>{t("signup.email")}</Label>
                 <Input
-                  placeholder={i18n.t("signup.emailPlaceholder")}
+                  placeholder={t("signup.emailPlaceholder")}
                   {...register("email")}
                   disabled={isLoading}
                 />
@@ -142,9 +143,9 @@ export default function SignupPage() {
               {/* Phone */}
 
               <div className="flex flex-col gap-1">
-                <Label>{i18n.t("signup.phone")}</Label>
+                <Label>{t("signup.phone")}</Label>
                 <Input
-                  placeholder={i18n.t("signup.phonePlaceholder")}
+                  placeholder={t("signup.phonePlaceholder")}
                   {...register("phone")}
                   disabled={isLoading}
                 />
@@ -156,10 +157,10 @@ export default function SignupPage() {
               {/* Password */}
 
               <div className="flex flex-col gap-1">
-                <Label>{i18n.t("signup.password")}</Label>
+                <Label>{t("signup.password")}</Label>
                 <Input
                   type="password"
-                  placeholder={i18n.t("signup.passwordPlaceholder")}
+                  placeholder={t("signup.passwordPlaceholder")}
                   {...register("password")}
                   disabled={isLoading}
                 />
@@ -177,10 +178,10 @@ export default function SignupPage() {
                   {isLoading ? (
                     <>
                       <span className="mr-2 h-4 w-4 animate-spin">⚪</span>
-                      {i18n.t("signup.submitting")}
+                      {t("signup.submitting")}
                     </>
                   ) : (
-                    i18n.t("signup.submit")
+                    t("signup.submit")
                   )}
                 </Button>
 
@@ -188,7 +189,7 @@ export default function SignupPage() {
                   to="/login"
                   className="text-sm text-primary hover:underline"
                 >
-                  {i18n.t("signup.loginLink")}
+                  {t("signup.loginLink")}
                 </Link>
               </div>
             </form>

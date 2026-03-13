@@ -25,7 +25,7 @@ import type { ChartConfig } from "@/components/ui/chart";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
 import type { ColumnDef } from "@tanstack/react-table";
 import { useTranslation } from "react-i18next";
-import i18n from "i18next";
+import { useMemo } from "react";
 
 type Sale = {
   name: string;
@@ -180,34 +180,7 @@ const recentSales: Sale[] = [
   },
 ];
 
-const columns: ColumnDef<Sale>[] = [
-  {
-    accessorKey: "name",
-    header: () => i18n.t("dashboard.invoice"),
-    cell: ({ row }) => {
-      const sale = row.original;
 
-      return (
-        <div className="flex flex-col">
-          <span>{sale.name}</span>
-          <span className="text-foreground/50">{sale.email}</span>
-        </div>
-      );
-    },
-  },
-  {
-    header: () => i18n.t("common.status"),
-    accessorKey: "status",
-  },
-  {
-    header: () => i18n.t("common.method"),
-    accessorKey: "date",
-  },
-  {
-    header: () => i18n.t("common.amount"),
-    accessorKey: "amount",
-  },
-];
 
 export const description = "An interactive area chart";
 const chartData = [
@@ -315,8 +288,37 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export default function DashboardPage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [timeRange, setTimeRange] = useState("90d");
+
+  const columns = useMemo<ColumnDef<Sale>[]>(() => [
+    {
+      accessorKey: "name",
+      header: () => t("dashboard.invoice"),
+      cell: ({ row }) => {
+        const sale = row.original;
+
+        return (
+          <div className="flex flex-col">
+            <span>{sale.name}</span>
+            <span className="text-foreground/50">{sale.email}</span>
+          </div>
+        );
+      },
+    },
+    {
+      header: () => t("common.status"),
+      accessorKey: "status",
+    },
+    {
+      header: () => t("common.method"),
+      accessorKey: "date",
+    },
+    {
+      header: () => t("common.amount"),
+      accessorKey: "amount",
+    },
+  ], [t]);
   const filteredData = chartData.filter((item) => {
     const date = new Date(item.date);
     const referenceDate = new Date("2024-06-30");
